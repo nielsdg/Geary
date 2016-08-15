@@ -319,14 +319,21 @@ client/application/geary-controller.vala
 client/application/main.vala
 client/application/secret-mediator.vala
 
+client/accounts/forms/account-form.vala
+client/accounts/forms/account-alias-form.vala
+client/accounts/forms/account-imap-form.vala
+client/accounts/forms/account-signature-form.vala
+client/accounts/forms/account-smtp-form.vala
+client/accounts/account-create-assistant.vala
+client/accounts/account-edit-dialog.vala
 client/accounts/account-dialog.vala
-client/accounts/account-dialog-account-list-pane.vala
 client/accounts/account-dialog-add-edit-pane.vala
 client/accounts/account-dialog-edit-alternate-emails-pane.vala
 client/accounts/account-dialog-pane.vala
 client/accounts/account-dialog-remove-confirm-pane.vala
 client/accounts/account-dialog-remove-fail-pane.vala
 client/accounts/account-dialog-spinner-pane.vala
+client/accounts/account-list-dialog.vala
 client/accounts/account-spinner-page.vala
 client/accounts/add-edit-page.vala
 client/accounts/login-dialog.vala

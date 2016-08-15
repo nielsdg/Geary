@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.14"/>
+  <template class="AccountImapForm" parent="AccountForm">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
+    <style>
+      <class name="geary-common-preferences-dialog-container"/>
+    </style>
+    <child>
+      <object class="GtkFrame" id="category_general">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <style>
+          <class name="geary-common-preferences-category"/>
+        </style>
+        <child type="label">
+          <object class="GtkLabel" id="category_general_title">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Mail Server - IMAP</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkGrid" id="category_general_grid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="row_spacing">6</property>
+            <child>
+              <object class="GtkLabel" id="host_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Server address</property>
+              </object>
+              <packing>
+                <property name="top_attach">0</property>
+                <property name="left_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="host_value">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+              </object>
+              <packing>
+                <property name="top_attach">0</property>
+                <property name="left_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="port_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="margin_start">12</property>
+                <property name="label" translatable="yes">Port</property>
+              </object>
+              <packing>
+                <property name="top_attach">0</property>
+                <property name="left_attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="port_value">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="numeric">True</property>
+              </object>
+              <packing>
+                <property name="top_attach">0</property>
+                <property name="left_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="username_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Login name</property>
+              </object>
+              <packing>
+                <property name="top_attach">1</property>
+                <property name="left_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="username_value">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+              </object>
+              <packing>
+                <property name="top_attach">1</property>
+                <property name="left_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="password_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Password</property>
+              </object>
+              <packing>
+                <property name="top_attach">2</property>
+                <property name="left_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="password_value">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="visibility">False</property>
+              </object>
+              <packing>
+                <property name="top_attach">2</property>
+                <property name="left_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="remember_password_check">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="draw_indicator">True</property>
+                <property name="label" translatable="yes">Remember</property>
+              </object>
+              <packing>
+                <property name="top_attach">2</property>
+                <property name="left_attach">2</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="encryption_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Encryption</property>
+              </object>
+              <packing>
+                <property name="top_attach">3</property>
+                <property name="left_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="encryption_combobox">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="active">0</property>
+                <items>
+                  <item translatable="yes" id="encryption_option_none">None</item>
+                  <item translatable="yes" id="encryption_option_ssl_tls">SSL/TLS</item>
+                  <item translatable="yes" id="encryption_option_starttls">StartTLS</item>
+                </items>
+              </object>
+              <packing>
+                <property name="top_attach">3</property>
+                <property name="left_attach">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkFrame" id="category_storage">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <style>
+          <class name="geary-common-preferences-category"/>
+        </style>
+        <child type="label">
+          <object class="GtkLabel" id="category_storage_title">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Storage</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkGrid" id="category_storage_grid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="row_spacing">6</property>
+            <child>
+              <object class="GtkLabel" id="download_mail_period_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Download mail</property>
+              </object>
+              <packing>
+                <property name="top_attach">0</property>
+                <property name="left_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBoxText" id="download_mail_period_combobox">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="active">0</property>
+                <items>
+                  <item translatable="yes" id="download_mail_period_option_2weeks">2 weeks back</item>
+                  <item translatable="yes" id="download_mail_period_option_1month">1 month back</item>
+                  <item translatable="yes" id="download_mail_period_option_3months">3 months back</item>
+                  <item translatable="yes" id="download_mail_period_option_6months">6 months back</item>
+                  <item translatable="yes" id="download_mail_period_option_1year">1 year back</item>
+                  <item translatable="yes" id="download_mail_period_option_2year">2 years back</item>
+                  <item translatable="yes" id="download_mail_period_option_4year">4 years back</item>
+                  <item translatable="yes" id="download_mail_period_option_separator">---</item>
+                  <item translatable="yes" id="download_mail_period_option_everything">Everything</item>
+                </items>
+              </object>
+              <packing>
+                <property name="top_attach">0</property>
+                <property name="left_attach">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

@@ -8,7 +8,6 @@ public class AccountDialog : Gtk.Dialog {
     private const int MARGIN = 12;
     
     private Gtk.Stack stack = new Gtk.Stack();
-    private AccountDialogAccountListPane account_list_pane;
     private AccountDialogAddEditPane add_edit_pane;
     private AccountDialogSpinnerPane spinner_pane;
     private AccountDialogRemoveConfirmPane remove_confirm_pane;
@@ -29,7 +28,7 @@ public class AccountDialog : Gtk.Dialog {
         get_content_area().margin_bottom = MARGIN;
         
         // Add pages to stack.
-        account_list_pane = new AccountDialogAccountListPane(stack);
+        /* account_list_pane = new AccountDialogAccountListPane(stack); */
         add_edit_pane = new AccountDialogAddEditPane(stack);
         spinner_pane = new AccountDialogSpinnerPane(stack);
         remove_confirm_pane = new AccountDialogRemoveConfirmPane(stack);
@@ -37,9 +36,9 @@ public class AccountDialog : Gtk.Dialog {
         edit_alternate_emails_pane = new AccountDialogEditAlternateEmailsPane(stack);
         
         // Connect signals from pages.
-        account_list_pane.add_account.connect(on_add_account);
-        account_list_pane.edit_account.connect(on_edit_account);
-        account_list_pane.delete_account.connect(on_delete_account);
+        /* account_list_pane.add_account.connect(on_add_account); */
+        /* account_list_pane.edit_account.connect(on_edit_account); */
+        /* account_list_pane.delete_account.connect(on_delete_account); */
         add_edit_pane.ok.connect(on_save_add_or_edit);
         add_edit_pane.cancel.connect(on_cancel_back_to_list);
         add_edit_pane.size_changed.connect(() => { resize(1, 1); });
@@ -50,7 +49,7 @@ public class AccountDialog : Gtk.Dialog {
         edit_alternate_emails_pane.done.connect(on_done_back_to_editor);
         
         // Set default page.
-        account_list_pane.present();
+        /* account_list_pane.present(); */
         
         get_content_area().pack_start(stack, true, true, 0);
         
@@ -58,11 +57,11 @@ public class AccountDialog : Gtk.Dialog {
         
     }
     
-    private void on_add_account() {
-        add_edit_pane.reset_all();
-        add_edit_pane.set_mode(AddEditPage.PageMode.ADD);
-        add_edit_pane.present();
-    }
+    /* private void on_add_account() { */
+    /*     add_edit_pane.reset_all(); */
+    /*     add_edit_pane.set_mode(AddEditPage.PageMode.ADD); */
+    /*     add_edit_pane.present(); */
+    /* } */
     
     // Grab the account info.  While the addresses passed into this method should *always* be
     // available in Geary, we double-check to be defensive.
@@ -85,56 +84,56 @@ public class AccountDialog : Gtk.Dialog {
         return accounts.get(email_address);
     }
     
-    private void on_edit_account(string email_address) {
-        on_edit_account_async.begin(email_address);
-    }
+    /* private void on_edit_account(string email_address) { */
+    /*     on_edit_account_async.begin(email_address); */
+    /* } */
     
-    private async void on_edit_account_async(string email_address) {
-        Geary.AccountInformation? account = get_account_info_for_email(email_address);
-        if (account == null)
-            return;
+    /* private async void on_edit_account_async(string email_address) { */
+    /*     Geary.AccountInformation? account = get_account_info_for_email(email_address); */
+    /*     if (account == null) */
+    /*         return; */
         
-        try {
-            yield account.get_passwords_async(Geary.ServiceFlag.IMAP | Geary.ServiceFlag.SMTP);
-        } catch (Error err) {
-            debug("Unable to fetch password(s) for account: %s", err.message);
-        }
+    /*     try { */
+    /*         yield account.get_passwords_async(Geary.ServiceFlag.IMAP | Geary.ServiceFlag.SMTP); */
+    /*     } catch (Error err) { */
+    /*         debug("Unable to fetch password(s) for account: %s", err.message); */
+    /*     } */
         
-        add_edit_pane.set_mode(AddEditPage.PageMode.EDIT);
-        add_edit_pane.set_account_information(account);
-        add_edit_pane.present();
-    }
+    /*     add_edit_pane.set_mode(AddEditPage.PageMode.EDIT); */
+    /*     add_edit_pane.set_account_information(account); */
+    /*     add_edit_pane.present(); */
+    /* } */
     
-    private void on_delete_account(string email_address) {
-        Geary.AccountInformation? account = get_account_info_for_email(email_address);
-        if (account == null)
-            return;
+    /* private void on_delete_account(string email_address) { */
+    /*     Geary.AccountInformation? account = get_account_info_for_email(email_address); */
+    /*     if (account == null) */
+    /*         return; */
         
-        // Check for open composer windows.
-        bool composer_widget_found = false;
-        Gee.List<ComposerWidget>? widgets = 
-            GearyApplication.instance.controller.get_composer_widgets_for_account(account);
+    /*     // Check for open composer windows. */
+    /*     bool composer_widget_found = false; */
+    /*     Gee.List<ComposerWidget>? widgets = */ 
+    /*         GearyApplication.instance.controller.get_composer_widgets_for_account(account); */
         
-        if (widgets != null) {
-            foreach (ComposerWidget cw in widgets) {
-                if (cw.account.information == account &&
-                    cw.compose_type != ComposerWidget.ComposeType.NEW_MESSAGE) {
-                    composer_widget_found = true;
+    /*     if (widgets != null) { */
+    /*         foreach (ComposerWidget cw in widgets) { */
+    /*             if (cw.account.information == account && */
+    /*                 cw.compose_type != ComposerWidget.ComposeType.NEW_MESSAGE) { */
+    /*                 composer_widget_found = true; */
                     
-                    break;
-                }
-            }
-        }
+    /*                 break; */
+    /*             } */
+    /*         } */
+    /*     } */
         
-        if (composer_widget_found) {
-            // Warn user that account cannot be deleted until composer is closed.
-            remove_fail_pane.present();
-        } else {
-            // Send user to confirmation screen.
-            remove_confirm_pane.set_account(account);
-            remove_confirm_pane.present();
-        }
-    }
+    /*     if (composer_widget_found) { */
+    /*         // Warn user that account cannot be deleted until composer is closed. */
+    /*         remove_fail_pane.present(); */
+    /*     } else { */
+    /*         // Send user to confirmation screen. */
+    /*         remove_confirm_pane.set_account(account); */
+    /*         remove_confirm_pane.present(); */
+    /*     } */
+    /* } */
     
     private void on_edit_alternate_emails(string email_address) {
         Geary.AccountInformation? account_info = get_account_info_for_email(email_address);
@@ -149,8 +148,8 @@ public class AccountDialog : Gtk.Dialog {
         assert(account != null); // Should not be able to happen since we checked earlier.
         
         // Remove account, then set the page back to the account list.
-        GearyApplication.instance.controller.remove_account_async.begin(account, null, () => {
-            account_list_pane.present(); });
+        /* GearyApplication.instance.controller.remove_account_async.begin(account, null, () => { */
+        /*     account_list_pane.present(); }); */
     }
     
     private void on_save_add_or_edit(Geary.AccountInformation info) {
@@ -188,11 +187,11 @@ public class AccountDialog : Gtk.Dialog {
                 account_information, options);
             
             // If account was successfully added return to the account list.
-            if (validation_result == Geary.Engine.ValidationResult.OK) {
-                account_list_pane.present();
+            /* if (validation_result == Geary.Engine.ValidationResult.OK) { */
+            /*     account_list_pane.present(); */
                 
-                return;
-            }
+            /*     return; */
+            /* } */
             
             // check for TLS warnings
             bool retry_required;
@@ -208,7 +207,7 @@ public class AccountDialog : Gtk.Dialog {
     }
     
     private void on_cancel_back_to_list() {
-        account_list_pane.present();
+        /* account_list_pane.present(); */
     }
     
     private void on_done_back_to_editor() {

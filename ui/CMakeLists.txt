@@ -1,8 +1,14 @@
 
 set(RESOURCE_LIST
   STRIPBLANKS "accelerators.ui"
+  STRIPBLANKS "account-alias-form.ui"
+  STRIPBLANKS "account-imap-form.ui"
+  STRIPBLANKS "account-signature-form.ui"
+  STRIPBLANKS "account-smtp-form.ui"
+  STRIPBLANKS "account-edit-dialog.ui"
+  STRIPBLANKS "account-create-assistant.ui"
   STRIPBLANKS "account_cannot_remove.glade"
-  STRIPBLANKS "account_list.glade"
+  STRIPBLANKS "account-list-dialog.ui"
   STRIPBLANKS "account_spinner.glade"
   STRIPBLANKS "certificate_warning_dialog.glade"
   STRIPBLANKS "composer-headerbar.ui"

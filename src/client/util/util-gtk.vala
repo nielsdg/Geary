@@ -203,4 +203,15 @@ void add_g_menu_to_gtk_menu(Gtk.Menu gtk_menu, Menu g_menu, MenuItemFilterFunc f
 // Used for add_g_menu_to_gtk_menu()
 delegate bool MenuItemFilterFunc(string? label, string? detailed_action_name);
 
+/**
+  * Use this on a GtkComboBox(Text) to set the separator.
+  */
+private void set_combobox_separator(Gtk.ComboBox combobox, string separator = "---") {
+    combobox.set_row_separator_func((model, iter) => {
+        GLib.Value v;
+        model.get_value(iter, 0, out v);
+
+        return v.get_string() == separator;
+    });
+}
 }

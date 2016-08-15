@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.14"/>
+  <template class="AccountEditDialog" parent="GtkDialog">
+    <property name="modal">True</property>
+    <property name="use_header_bar">1</property>
+    <property name="height_request">600</property>
+    <style>
+      <class name="geary-common-preferences-dialog"/>
+    </style>
+    <child type="action">
+      <object class="GtkButton" id="cancel_button">
+        <property name="label" translatable="yes">Cancel</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <style>
+          <class name="text-button"/>
+        </style>
+      </object>
+    </child>
+    <child type="action">
+      <object class="GtkButton" id="save_button">
+        <property name="label" translatable="yes">Save</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="can_default">True</property>
+        <property name="has_default">True</property>
+        <property name="receives_default">True</property>
+        <style>
+          <class name="text-button"/>
+          <class name="suggested-action"/>
+        </style>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="cancel">cancel_button</action-widget>
+      <action-widget response="ok" default="true">save_button</action-widget>
+    </action-widgets>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="internal-vbox">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolled_window">
+            <property name="visible">True</property>
+            <property name="vexpand">True</property>
+            <property name="hscrollbar_policy">never</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkBox" id="dialog-container">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <property name="halign">center</property>
+                <property name="width_request">650</property>
+                <style>
+                  <class name="geary-common-preferences-dialog-container"/>
+                </style>
+                <child>
+                  <object class="GtkFrame" id="category_general_account_info">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <style>
+                      <class name="geary-common-preferences-category"/>
+                    </style>
+                    <child>
+                      <object class="GtkListBox" id="general_account_info">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="selection_mode">none</property>
+                        <property name="activate_on_single_click">True</property>
+                        <child>
+                          <object class="GtkListBoxRow" id="account_name_row">
+                            <property name="visible">True</property>
+                            <property name="activatable">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkBox" id="account_name_row_container">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="orientation">horizontal</property>
+                                <child>
+                                  <object class="GtkLabel" id="account_name_label">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="label" translatable="yes">Account name</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="account_name_value">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                    <style>
+                                      <class name="dim-label"/>
+                                    </style>
+                                  </object>
+                                  <packing>
+                                    <property name="pack_type">end</property>
+                                  </packing>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkFrame" id="category_sender_addresses">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <style>
+                      <class name="geary-common-preferences-category"/>
+                    </style>
+                    <child type="label">
+                      <object class="GtkLabel" id="category_sender_adresses_title">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Sender addresses</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkListBox" id="sender_addresses_list">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="selection_mode">none</property>
+                        <property name="activate_on_single_click">True</property>
+                        <signal name="row_activated" handler="on_sender_address_row_activated" swapped="no"/>
+                        <child>
+                          <object class="GtkListBoxRow" id="add_sender_address_row">
+                            <property name="visible">True</property>
+                            <property name="activatable">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkImage" id="add_sender_icon">
+                                <property name="visible">True</property>
+                                <property name="icon-name">list-add-symbolic</property>
+                                <property name="tooltip_text" translatable="yes">Add sender address</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkFrame" id="category_composer">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <style>
+                      <class name="geary-common-preferences-category"/>
+                    </style>
+                    <child type="label">
+                      <object class="GtkLabel" id="category_composer_title">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Composer</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkListBox" id="category_composer_list">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="selection_mode">none</property>
+                        <property name="activate_on_single_click">True</property>
+                        <signal name="row_activated" handler="on_signature_row_activated" swapped="no"/>
+                        <child>
+                          <object class="GtkListBoxRow" id="save_drafts_on_server_row">
+                            <property name="visible">True</property>
+                            <property name="activatable">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkBox" id="save_drafts_on_server_row_container">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="orientation">horizontal</property>
+                                <child>
+                                  <object class="GtkLabel" id="save_drafts_on_server_label">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="label" translatable="yes">Save drafts on server</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkSwitch" id="save_drafts_on_server_switch">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                  </object>
+                                  <packing>
+                                    <property name="pack_type">end</property>
+                                  </packing>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkListBoxRow" id="signature_row">
+                            <property name="visible">True</property>
+                            <property name="activatable">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkBox" id="signature_row_container">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="orientation">horizontal</property>
+                                <child>
+                                  <object class="GtkLabel" id="signature_label">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="label" translatable="yes">Email signature</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="signature_value">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                    <style>
+                                      <class name="dim-label"/>
+                                    </style>
+                                  </object>
+                                  <packing>
+                                    <property name="pack_type">end</property>
+                                  </packing>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkFrame" id="category_server_settings">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <style>
+                      <class name="geary-common-preferences-category"/>
+                    </style>
+                    <child type="label">
+                      <object class="GtkLabel" id="category_server_settings_title">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Mail Server</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkListBox" id="category_server_list">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="selection_mode">none</property>
+                        <property name="activate_on_single_click">True</property>
+                        <signal name="row_activated" handler="on_category_server_list_row_activated" swapped="no"/>
+                        <child>
+                          <object class="GtkListBoxRow" id="imap_server_row">
+                            <property name="visible">True</property>
+                            <property name="activatable">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkBox" id="imap_server_row_container">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="orientation">horizontal</property>
+                                <child>
+                                  <object class="GtkLabel" id="imap_server_label">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="label" translatable="yes">Receiving mail</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="imap_server_value">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                    <style>
+                                      <class name="dim-label"/>
+                                    </style>
+                                  </object>
+                                  <packing>
+                                    <property name="pack_type">end</property>
+                                  </packing>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkListBoxRow" id="smtp_server_row">
+                            <property name="visible">True</property>
+                            <property name="activatable">True</property>
+                            <property name="can_focus">False</property>
+                            <child>
+                              <object class="GtkBox" id="smtp_server_row_container">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="orientation">horizontal</property>
+                                <child>
+                                  <object class="GtkLabel" id="smtp_server_label">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="label" translatable="yes">Sending mail</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="smtp_server_value">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                    <style>
+                                      <class name="dim-label"/>
+                                    </style>
+                                  </object>
+                                  <packing>
+                                    <property name="pack_type">end</property>
+                                  </packing>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

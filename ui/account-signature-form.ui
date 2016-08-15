@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.14"/>
+  <template class="AccountSignatureForm" parent="AccountForm">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
+    <style>
+      <class name="geary-common-preferences-dialog-container"/>
+    </style>
+    <child>
+      <object class="GtkFrame" id="category_general">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <style>
+          <class name="geary-common-preferences-category"/>
+        </style>
+        <child>
+          <object class="GtkGrid" id="category_general_grid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="row_spacing">6</property>
+            <child>
+              <object class="GtkLabel" id="use_signature_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Use signature</property>
+              </object>
+              <packing>
+                <property name="top_attach">0</property>
+                <property name="left_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSwitch" id="use_signature_switch">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+              </object>
+              <packing>
+                <property name="top_attach">0</property>
+                <property name="left_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkStackSwitcher" id="view_stack_switcher">
+                <property name="visible">True</property>
+                <property name="stack">view_stack</property>
+              </object>
+              <packing>
+                <property name="top_attach">1</property>
+                <property name="left_attach">0</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkStack" id="view_stack">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <child>
+                  <object class="GtkScrolledWindow" id="edit_window">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="shadow_type">in</property>
+                    <child>
+                      <object class="GtkTextView" id="signature_text_view">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">edit_window</property>
+                    <property name="title" translatable="yes">Edit</property>
+                    <property name="icon-name">text-editor-symbolic</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="preview_window">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="shadow_type">in</property>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">preview_window</property>
+                    <property name="title" translatable="yes">Preview</property>
+                    <property name="icon-name">text-x-generic-symbolic</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="top_attach">2</property>
+                <property name="left_attach">0</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

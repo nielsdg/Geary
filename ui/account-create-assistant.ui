@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.14"/>
+  <template class="AccountCreateAssistant" parent="GtkAssistant">
+    <child>
+      <object class="GtkBox" id="welcome_page">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkBox" id="welcome_box">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">horizontal</property>
+            <child>
+              <object class="GtkImage" id="application_icon">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="pixel_size">64</property>
+                <property name="icon_name">geary</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="padding">8</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="welcome_text_box">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkLabel" id="welcome_title">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Welcome to Geary.</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="welcome_text">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="wrap">True</property>
+                    <property name="label" translatable="yes">Please choose your service provider and enter your login to begin.</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+				<child>
+					<object class="GtkComboBoxText" id="service_provider_combobox">
+						<property name="visible">True</property>
+						<property name="can_focus">True</property>
+					</object>
+				</child>
+				<child>
+					<object class="GtkFrame" id="category_login">
+						<property name="visible">True</property>
+						<property name="can_focus">False</property>
+						<style>
+							<class name="geary-common-preferences-category"/>
+						</style>
+						<child>
+							<object class="GtkGrid" id="login_grid">
+								<property name="visible">True</property>
+								<property name="can_focus">False</property>
+								<property name="row_spacing">6</property>
+								<child>
+									<object class="GtkLabel" id="email_label">
+										<property name="visible">True</property>
+										<property name="can_focus">False</property>
+										<property name="use_underline">True</property>
+										<property name="mnemonic_widget">email_value</property>
+										<property name="label" translatable="yes">E_mail address</property>
+										<style>
+											<class name="dim-label"/>
+										</style>
+									</object>
+									<packing>
+										<property name="top_attach">0</property>
+										<property name="left_attach">0</property>
+									</packing>
+								</child>
+								<child>
+									<object class="GtkEntry" id="email_value">
+										<property name="visible">True</property>
+										<property name="can_focus">True</property>
+										<property name="hexpand">True</property>
+										<property name="placeholder_text">email@example.com</property>
+									</object>
+									<packing>
+										<property name="top_attach">0</property>
+										<property name="left_attach">1</property>
+									</packing>
+								</child>
+								<child>
+									<object class="GtkLabel" id="password_label">
+										<property name="visible">True</property>
+										<property name="can_focus">False</property>
+										<property name="use_underline">True</property>
+										<property name="mnemonic_widget">password_value</property>
+										<property name="label" translatable="yes">_Password</property>
+										<style>
+											<class name="dim-label"/>
+										</style>
+									</object>
+									<packing>
+										<property name="top_attach">2</property>
+										<property name="left_attach">0</property>
+									</packing>
+								</child>
+								<child>
+									<object class="GtkEntry" id="password_value">
+										<property name="visible">True</property>
+										<property name="can_focus">True</property>
+										<property name="visibility">False</property>
+										<property name="placeholder_text" translatable="yes">Password</property>
+									</object>
+									<packing>
+										<property name="top_attach">2</property>
+										<property name="left_attach">1</property>
+									</packing>
+								</child>
+							</object>
+						</child>
+					</object>
+				</child>
+			</object>
+      <packing>
+        <property name="page_type">intro</property>
+        <property name="title" translatable="yes">Service provider</property>
+        <property name="complete">True</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkBox" id="summary_page">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <placeholder />
+        </child>
+      </object>
+      <packing>
+        <property name="page_type">summary</property>
+        <property name="title" translatable="yes">Summary</property>
+        <property name="complete">True</property>
+      </packing>
+    </child>
+  </template>
+</interface>
