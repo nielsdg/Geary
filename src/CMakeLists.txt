@@ -307,6 +307,13 @@ engine/util/util-synchronization.vala
 engine/util/util-time.vala
 engine/util/util-trillian.vala
 
+engine/validators/geary-validator.vala
+engine/validators/unique-account-validator.vala
+engine/validators/endpoint-validator.vala
+engine/validators/imap-validator.vala
+engine/validators/smtp-validator.vala
+engine/validators/required-string-validator.vala
+
 ${CMAKE_BINARY_DIR}/geary-version.vala
 )
 
@@ -321,6 +328,7 @@ client/application/secret-mediator.vala
 
 client/accounts/forms/account-form.vala
 client/accounts/forms/account-alias-form.vala
+client/accounts/forms/account-login-form.vala
 client/accounts/forms/account-imap-form.vala
 client/accounts/forms/account-signature-form.vala
 client/accounts/forms/account-smtp-form.vala
@@ -351,6 +359,7 @@ client/components/search-bar.vala
 client/components/status-bar.vala
 client/components/stock.vala
 client/components/stylish-webview.vala
+client/components/validated-form.vala
 
 client/composer/composer-box.vala
 client/composer/composer-container.vala

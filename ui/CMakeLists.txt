@@ -3,6 +3,7 @@ set(RESOURCE_LIST
   STRIPBLANKS "accelerators.ui"
   STRIPBLANKS "account-alias-form.ui"
   STRIPBLANKS "account-imap-form.ui"
+  STRIPBLANKS "account-login-form.ui"
   STRIPBLANKS "account-signature-form.ui"
   STRIPBLANKS "account-smtp-form.ui"
   STRIPBLANKS "account-edit-dialog.ui"

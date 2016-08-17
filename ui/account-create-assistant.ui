@@ -59,78 +59,8 @@
 					<object class="GtkComboBoxText" id="service_provider_combobox">
 						<property name="visible">True</property>
 						<property name="can_focus">True</property>
-					</object>
-				</child>
-				<child>
-					<object class="GtkFrame" id="category_login">
-						<property name="visible">True</property>
-						<property name="can_focus">False</property>
-						<style>
-							<class name="geary-common-preferences-category"/>
-						</style>
-						<child>
-							<object class="GtkGrid" id="login_grid">
-								<property name="visible">True</property>
-								<property name="can_focus">False</property>
-								<property name="row_spacing">6</property>
-								<child>
-									<object class="GtkLabel" id="email_label">
-										<property name="visible">True</property>
-										<property name="can_focus">False</property>
-										<property name="use_underline">True</property>
-										<property name="mnemonic_widget">email_value</property>
-										<property name="label" translatable="yes">E_mail address</property>
-										<style>
-											<class name="dim-label"/>
-										</style>
-									</object>
-									<packing>
-										<property name="top_attach">0</property>
-										<property name="left_attach">0</property>
-									</packing>
-								</child>
-								<child>
-									<object class="GtkEntry" id="email_value">
-										<property name="visible">True</property>
-										<property name="can_focus">True</property>
-										<property name="hexpand">True</property>
-										<property name="placeholder_text">email@example.com</property>
-									</object>
-									<packing>
-										<property name="top_attach">0</property>
-										<property name="left_attach">1</property>
-									</packing>
-								</child>
-								<child>
-									<object class="GtkLabel" id="password_label">
-										<property name="visible">True</property>
-										<property name="can_focus">False</property>
-										<property name="use_underline">True</property>
-										<property name="mnemonic_widget">password_value</property>
-										<property name="label" translatable="yes">_Password</property>
-										<style>
-											<class name="dim-label"/>
-										</style>
-									</object>
-									<packing>
-										<property name="top_attach">2</property>
-										<property name="left_attach">0</property>
-									</packing>
-								</child>
-								<child>
-									<object class="GtkEntry" id="password_value">
-										<property name="visible">True</property>
-										<property name="can_focus">True</property>
-										<property name="visibility">False</property>
-										<property name="placeholder_text" translatable="yes">Password</property>
-									</object>
-									<packing>
-										<property name="top_attach">2</property>
-										<property name="left_attach">1</property>
-									</packing>
-								</child>
-							</object>
-						</child>
+						<property name="margin-top">12</property>
+						<property name="margin-bottom">12</property>
 					</object>
 				</child>
 			</object>

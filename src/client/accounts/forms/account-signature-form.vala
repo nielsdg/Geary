@@ -30,8 +30,4 @@ public class AccountSignatureForm : AccountForm {
         if (view_stack.visible_child_name == "preview_window")
             preview_webview.load_html_string(Util.DOM.smart_escape(account.email_signature, true), "");
     }
-
-    public override bool is_valid() { //TODO
-        return true;
-    }
 }

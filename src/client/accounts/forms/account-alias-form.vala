@@ -24,8 +24,4 @@ public class AccountAliasForm : AccountForm {
 
         make_primary_button.sensitive = !(mailboxAddress != null && account.primary_mailbox.equal_to(mailboxAddress));
     }
-
-    public override bool is_valid() { //TODO
-        return true;
-    }
 }

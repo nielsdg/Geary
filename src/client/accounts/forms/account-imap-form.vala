@@ -26,12 +26,17 @@ public class AccountImapForm : AccountForm {
     public AccountImapForm(Geary.AccountInformation account) {
         base(account, _("Receiving Mail Server"));
 
+        // Fill in the data
         Geary.Endpoint endpoint = account.get_imap_endpoint();
         host_value.text = endpoint.remote_address.hostname;
         port_value.value = endpoint.remote_address.port;
         encryption_combobox.active = endpoint.flags;
 
         if (account.service_provider == Geary.ServiceProvider.OTHER) {
+            bind_validator(host_value, new Geary.RequiredStringValidator(true), "str");
+            bind_validator(username_value, new Geary.RequiredStringValidator(true), "str");
+            bind_validator(password_value, new Geary.RequiredStringValidator(true), "str");
+
             Geary.Credentials credentials = account.imap_credentials;
             if (credentials.user != null)
                 username_value.text = credentials.user;
@@ -45,9 +50,5 @@ public class AccountImapForm : AccountForm {
         }
 
         GtkUtil.set_combobox_separator(download_mail_period_combobox);
-    }
-
-    public override bool is_valid() { //TODO
-        return true;
     }
 }

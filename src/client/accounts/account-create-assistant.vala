@@ -13,13 +13,21 @@ public class AccountCreateAssistant : Gtk.Assistant {
 
     [GtkChild]
     private Gtk.ComboBoxText service_provider_combobox;
+    [GtkChild]
+    private Gtk.Box welcome_page;
 
     public AccountCreateAssistant(Gtk.Window parent) {
-        set_transient_for(parent);
+        Object(modal: true, transient_for: parent);
 
         foreach (Geary.ServiceProvider p in Geary.ServiceProvider.get_providers())
             service_provider_combobox.append_text(p.display_name());
 				service_provider_combobox.active = 0;
+
+        // Add login form
+        AccountLoginForm loginForm = new AccountLoginForm();
+        welcome_page.pack_end(loginForm);
+        set_page_complete(welcome_page, loginForm.is_valid());
+        loginForm.validation_done.connect((succ) => set_page_complete(welcome_page, succ));
 
         try {
             account = Geary.Engine.instance.create_orphan_account();
@@ -34,10 +42,9 @@ public class AccountCreateAssistant : Gtk.Assistant {
 
     public void addAccountForm(AccountForm form) {
         insert_page(form, get_n_pages() - 1);
-        set_page_type(form, Gtk.AssistantPageType.CONTENT);
 				set_page_title(form, form.title);
 				set_page_complete(form, form.is_valid());
-        form.valid.connect(() => set_page_complete(form, true));
+        form.validation_done.connect((succ) => set_page_complete(form, succ));
     }
 }
 

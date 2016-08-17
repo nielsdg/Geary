@@ -7,9 +7,9 @@
 /**
   * The AccountForm represents a part of the elements.
   */
-public abstract class AccountForm : Gtk.Box {
+public abstract class AccountForm : ValidatedForm {
     // The account for which the form is collecting information.
-    protected Geary.AccountInformation account;
+    protected Geary.AccountInformation? account;
 
     // The title of the form
     private string _title;
@@ -17,20 +17,7 @@ public abstract class AccountForm : Gtk.Box {
       get { return _title; }
     }
 
-    public AccountForm(Geary.AccountInformation account, string title) {
+    public AccountForm(Geary.AccountInformation? account, string title) {
       this._title = title;
-    }
-
-    // This signal is fired if the form is complete and contains valid information.
-    public signal void valid();
-
-    // Whether the form is complete and contains valid information.
-    public abstract bool is_valid();
-
-    // Handler that should be called by each form element on change so we can fire the
-    // 'valid'-signal at the appropriate time.
-    protected void changed() {
-        if (is_valid())
-            valid();
     }
 }

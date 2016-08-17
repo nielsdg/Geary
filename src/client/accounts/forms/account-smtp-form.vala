@@ -61,8 +61,4 @@ public class AccountSmtpForm : AccountForm {
 
         save_sent_mail_switch.active = account.save_sent_mail;
     }
-
-    public override bool is_valid() { //TODO
-        return true;
-    }
 }

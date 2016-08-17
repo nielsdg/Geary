@@ -189,3 +189,7 @@ frame.geary-common-preferences-category > grid {
 frame.geary-common-preferences-category > grid label {
   margin-right: 12px;
 }
+
+.form-error-label {
+    color: red;
+}
