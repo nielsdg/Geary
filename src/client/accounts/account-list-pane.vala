@@ -4,20 +4,15 @@
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-[GtkTemplate (ui = "/org/gnome/Geary/account-list-dialog.ui")]
-public class AccountListDialog : Gtk.Dialog {
+[GtkTemplate (ui = "/org/gnome/Geary/account-list-pane.ui")]
+public class AccountListPane : Gtk.Box {
 
     [GtkChild]
     private Gtk.ListBox account_list;
 
-    private Gtk.Window parentWindow;
+    public signal void account_edit(Geary.AccountInformation account);
 
-    public signal void add_account();
-    public signal void delete_account(string email_address);
-
-    public AccountListDialog(Gtk.Window parent) {
-        GLib.Object(transient_for: parent);
-        this.parentWindow = parent;
+    public AccountListPane() {
         account_list.set_sort_func(row_compare);
 
         try {
@@ -36,20 +31,17 @@ public class AccountListDialog : Gtk.Dialog {
     private void on_row_activated(Gtk.ListBoxRow row) {
         Geary.AccountInformation account = row.get_data<Geary.AccountInformation>("account");
         if (account == null) { // Add account-row
-            AccountCreateAssistant assistant = new AccountCreateAssistant(parentWindow);
-            assistant.show_all();
-            // TODO: for some reason, the list dialog also prevent interaction with the assistant.
-            close();
+            var window = (Gtk.Window) get_toplevel();
+            AccountCreateAssistant assistant = new AccountCreateAssistant(window);
+            assistant.show();
+            window.close();
         } else {
-            AccountEditDialog dialog = new AccountEditDialog(this, account);
-            dialog.show();
-            dialog.run();
+            account_edit(account);
         }
     }
 
     private void on_row_delete_button_activated(Gtk.ListBoxRow row) {
-        string address = row.get_data<Geary.AccountInformation>("account").id;
-        delete_account(address);
+        // TODO
     }
 
     private void on_account_added(Geary.AccountInformation account) {
@@ -57,7 +49,7 @@ public class AccountListDialog : Gtk.Dialog {
             return;
 
         account_list.add(build_row(account));
-        account.notify.connect(on_account_changed);
+        /* account.notify.connect(on_account_changed); */
         account_list.invalidate_sort();
         update_ordinals();
     }
@@ -77,6 +69,8 @@ public class AccountListDialog : Gtk.Dialog {
         deleteButton.get_style_context().add_class("flat");
         deleteButton.activate.connect(() => on_row_delete_button_activated(row));
         rowContainer.add(deleteButton);
+
+        row.show_all();
 
         return row;
     }

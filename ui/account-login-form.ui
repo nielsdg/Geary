@@ -46,6 +46,18 @@
               </packing>
             </child>
             <child>
+              <object class="GtkLabel" id="username_validation_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="mnemonic_widget">username_value</property>
+                <property name="use_markup">True</property>
+              </object>
+              <packing>
+                <property name="top_attach">0</property>
+                <property name="left_attach">2</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkLabel" id="password_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -64,6 +76,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="width_chars">35</property>
+                <property name="visibility">False</property>
                 <property name="placeholder_text" translatable="yes">Password</property>
               </object>
               <packing>
@@ -72,18 +85,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="validation_error_label">
+              <object class="GtkLabel" id="password_validation_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <style>
-                  <class name="form-error-label" />
-                </style>
+                <property name="mnemonic_widget">password_value</property>
+                <property name="use_markup">True</property>
               </object>
               <packing>
-                <property name="top_attach">2</property>
-                <property name="left_attach">0</property>
-                <property name="width">2</property>
+                <property name="top_attach">1</property>
+                <property name="left_attach">2</property>
               </packing>
             </child>
           </object>

@@ -152,12 +152,13 @@ row.geary-folder-popover-list-row > label {
 }
 .geary-empty-placeholder > .title {
   font-weight: bold;
+}
 
 /* Preferences - Common CSS Styles */
 
 /* Used for preferably both general and account preference dialogs. */
 .geary-common-preferences-dialog-container {
-  margin: 20px 60px;
+  padding: 20px 60px;
 }
 frame.geary-common-preferences-category {
   margin-bottom: 12px;
@@ -184,12 +185,20 @@ frame.geary-common-preferences-category > list > row:last-child {
 }
 /* Form-like (grid-based) preferences */
 frame.geary-common-preferences-category > grid {
-  border: 1px solid @borders;
 }
 frame.geary-common-preferences-category > grid label {
   margin-right: 12px;
 }
-
-.form-error-label {
-    color: red;
+/* Labels */
+label.geary-common-preferences-preconfigured {
+  color: green;
+}
+.geary-common-preferences-validated-input-good {
+  border: 2px solid #7DD878;
+}
+.geary-common-preferences-validated-input-bad {
+  border: 2px solid red;
+}
+label.form-error-label {
+  color: red;
 }

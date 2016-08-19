@@ -1,4 +1,4 @@
-/* Copyright 2016 Software Freedom Conservancy Inc.
+/* Copyright 2016 Software Niels De Graef
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -13,17 +13,12 @@ public class Geary.UniqueAccountValidator : Validator {
     public UniqueAccountValidator(Geary.AccountInformation account,
                                   Gee.Collection<Geary.AccountInformation> other_accounts,
                                   bool check_email_unique = false) {
-        required_objects = { account, other_accounts };
-
         this.account = account;
         this.other_accounts = other_accounts;
         this.check_email_unique = check_email_unique;
     }
 
     public override async bool validate_async(Cancellable? cancellable) {
-        if (!check_required())
-            return false;
-
         // Make sure the account nickname and email is not in use.
         foreach (AccountInformation a in other_accounts) {
             // Don't need to check a's alternate_emails since they

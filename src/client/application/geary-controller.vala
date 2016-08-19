@@ -863,6 +863,7 @@ public class GearyController : Geary.BaseObject {
     
     // Attempts to validate and add an account.  Returns a result code indicating
     // success or one or more errors.
+    // NOTE: this alse saves the account information if it passed the validation.
     public async Geary.Engine.ValidationResult validate_async(
         Geary.AccountInformation account_information, Geary.Engine.ValidationOption options,
         Cancellable? cancellable = null) {

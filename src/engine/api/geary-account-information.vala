@@ -117,7 +117,7 @@ public class Geary.AccountInformation : BaseObject {
      *
      * @see get_all_mailboxes
      */
-    public Gee.List<Geary.RFC822.MailboxAddress>? alternate_mailboxes { get; private set; default = null; }
+    public Gee.List<Geary.RFC822.MailboxAddress> alternate_mailboxes { get; private set; default = new Gee.ArrayList<Geary.RFC822.MailboxAddress>(); }
 
     public Geary.ServiceProvider service_provider {
         get; set; default = Geary.ServiceProvider.GMAIL;
@@ -200,11 +200,6 @@ public class Geary.AccountInformation : BaseObject {
      */
     public signal void untrusted_host(Endpoint endpoint, Endpoint.SecurityType security,
         TlsConnection cx, Service service);
-
-    // Used to create temporary AccountInformation objects.  (Note that these cannot be saved.)
-    public AccountInformation.temp_copy(AccountInformation copy) {
-        copy_from(copy);
-    }
 
     /**
      * Creates a new, empty account info file.
@@ -348,10 +343,8 @@ public class Geary.AccountInformation : BaseObject {
         this.id = from.id;
         this.nickname = from.nickname;
         this.primary_mailbox = from.primary_mailbox;
-        if (from.alternate_mailboxes != null) {
-            foreach (RFC822.MailboxAddress alternate_mailbox in from.alternate_mailboxes)
-                add_alternate_mailbox(alternate_mailbox);
-        }
+        foreach (RFC822.MailboxAddress alternate_mailbox in from.alternate_mailboxes)
+            add_alternate_mailbox(alternate_mailbox);
         this.service_provider = from.service_provider;
         this.prefetch_period_days = from.prefetch_period_days;
         this.save_sent_mail = from.save_sent_mail;
@@ -387,41 +380,36 @@ public class Geary.AccountInformation : BaseObject {
         Gee.ArrayList<RFC822.MailboxAddress> all = new Gee.ArrayList<RFC822.MailboxAddress>();
 
         all.add(this.primary_mailbox);
+        all.add_all(alternate_mailboxes);
 
-        if (alternate_mailboxes != null)
-            all.add_all(alternate_mailboxes);
-        
         return all;
     }
-    
+
     /**
      * Add an alternate email address to the account.
      *
      * Duplicates will be ignored.
      */
     public void add_alternate_mailbox(Geary.RFC822.MailboxAddress mailbox) {
-        if (alternate_mailboxes == null)
-            alternate_mailboxes = new Gee.ArrayList<RFC822.MailboxAddress>();
-        
         if (!alternate_mailboxes.contains(mailbox))
             alternate_mailboxes.add(mailbox);
     }
-    
+
     /**
      * Replaces the list of alternate email addresses with the supplied collection.
      *
      * Duplicates will be ignored.
      */
     public void replace_alternate_mailboxes(Gee.Collection<Geary.RFC822.MailboxAddress>? mailboxes) {
-        alternate_mailboxes = null;
-        
+        alternate_mailboxes.clear();
+
         if (mailboxes == null || mailboxes.size == 0)
             return;
-        
+
         foreach (RFC822.MailboxAddress mailbox in mailboxes)
             add_alternate_mailbox(mailbox);
     }
-    
+
     /**
      * Return whether this account allows setting the save_sent_mail option.
      * If not, save_sent_mail will always be true and setting it will be
@@ -845,6 +833,10 @@ public class Geary.AccountInformation : BaseObject {
         return (uint16) get_int_value(key_file, group, key);
     }
 
+    /**
+      * Stores the account information into its own persistent file.
+      * Note that this means that *each* property will be saved.
+      */
     public async void store_async(Cancellable? cancellable = null) {
         if (file == null || config_dir == null) {
             warning("Cannot save account, no file set.\n");
@@ -893,7 +885,7 @@ public class Geary.AccountInformation : BaseObject {
         key_file.set_boolean(GROUP, SAVE_SENT_MAIL_KEY, this.save_sent_mail);
         key_file.set_boolean(GROUP, USE_EMAIL_SIGNATURE_KEY, this.use_email_signature);
         key_file.set_string(GROUP, EMAIL_SIGNATURE_KEY, this.email_signature);
-        if (alternate_mailboxes != null && this.alternate_mailboxes.size > 0) {
+        if (this.alternate_mailboxes.size > 0) {
             string[] list = new string[this.alternate_mailboxes.size];
             for (int ctr = 0; ctr < this.alternate_mailboxes.size; ctr++)
                 list[ctr] = this.alternate_mailboxes[ctr].to_rfc822_string();
@@ -998,10 +990,9 @@ public class Geary.AccountInformation : BaseObject {
     public bool has_email_address(Geary.RFC822.MailboxAddress email) {
         return (
             this.primary_mailbox.equal_to(email) ||
-            (this.alternate_mailboxes != null &&
-             this.alternate_mailboxes.fold<bool>((alt) => {
+            this.alternate_mailboxes.fold<bool>((alt) => {
                      return alt.equal_to(email);
-                 }, false))
+                 }, false)
         );
     }
 

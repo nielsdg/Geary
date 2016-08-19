@@ -28,6 +28,22 @@
             <property name="can_focus">False</property>
             <property name="row_spacing">6</property>
             <child>
+              <object class="GtkLabel" id="service_provider_preconfigured">
+                <property name="visible">False</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Preconfigured for your service provider.</property>
+                <style>
+                  <class name="geary-common-preferences-preconfigured"/>
+                </style>
+              </object>
+              <packing>
+                <property name="top_attach">0</property>
+                <property name="left_attach">0</property>
+                <property name="width">4</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkLabel" id="host_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -35,7 +51,7 @@
                 <property name="label" translatable="yes">Server address</property>
               </object>
               <packing>
-                <property name="top_attach">0</property>
+                <property name="top_attach">1</property>
                 <property name="left_attach">0</property>
               </packing>
             </child>
@@ -45,7 +61,7 @@
                 <property name="can_focus">True</property>
               </object>
               <packing>
-                <property name="top_attach">0</property>
+                <property name="top_attach">1</property>
                 <property name="left_attach">1</property>
               </packing>
             </child>
@@ -58,7 +74,7 @@
                 <property name="label" translatable="yes">Port</property>
               </object>
               <packing>
-                <property name="top_attach">0</property>
+                <property name="top_attach">1</property>
                 <property name="left_attach">2</property>
               </packing>
             </child>
@@ -71,7 +87,7 @@
                 <property name="truncate_multiline">True</property>
               </object>
               <packing>
-                <property name="top_attach">0</property>
+                <property name="top_attach">1</property>
                 <property name="left_attach">3</property>
               </packing>
             </child>
@@ -83,7 +99,7 @@
                 <property name="label" translatable="yes">Encryption</property>
               </object>
               <packing>
-                <property name="top_attach">1</property>
+                <property name="top_attach">2</property>
                 <property name="left_attach">0</property>
               </packing>
             </child>
@@ -99,7 +115,7 @@
                 </items>
               </object>
               <packing>
-                <property name="top_attach">1</property>
+                <property name="top_attach">2</property>
                 <property name="left_attach">1</property>
               </packing>
             </child>
@@ -111,7 +127,7 @@
                 <property name="label" translatable="yes">Use IMAP credentials</property>
               </object>
               <packing>
-                <property name="top_attach">2</property>
+                <property name="top_attach">3</property>
                 <property name="left_attach">0</property>
                 <property name="width">4</property>
               </packing>
@@ -125,7 +141,7 @@
                 <property name="label" translatable="yes">Use custom credentials</property>
               </object>
               <packing>
-                <property name="top_attach">3</property>
+                <property name="top_attach">4</property>
                 <property name="left_attach">0</property>
                 <property name="width">4</property>
               </packing>
@@ -135,11 +151,11 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
-                <property name="sensitive" bind-source="use_custom_credentials_check" bind-property="active" />
+                <property name="sensitive" bind-source="use_custom_credentials_check" bind-property="active" bind-flags="sync-create" />
                 <property name="label" translatable="yes">Login name</property>
               </object>
               <packing>
-                <property name="top_attach">4</property>
+                <property name="top_attach">5</property>
                 <property name="left_attach">0</property>
               </packing>
             </child>
@@ -147,10 +163,10 @@
               <object class="GtkEntry" id="username_value">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="sensitive" bind-source="use_custom_credentials_check" bind-property="active" />
+                <property name="sensitive" bind-source="use_custom_credentials_check" bind-property="active" bind-flags="sync-create" />
               </object>
               <packing>
-                <property name="top_attach">4</property>
+                <property name="top_attach">5</property>
                 <property name="left_attach">1</property>
               </packing>
             </child>
@@ -159,11 +175,11 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
-                <property name="sensitive" bind-source="use_custom_credentials_check" bind-property="active" />
+                <property name="sensitive" bind-source="use_custom_credentials_check" bind-property="active" bind-flags="sync-create" />
                 <property name="label" translatable="yes">Password</property>
               </object>
               <packing>
-                <property name="top_attach">5</property>
+                <property name="top_attach">6</property>
                 <property name="left_attach">0</property>
               </packing>
             </child>
@@ -171,10 +187,10 @@
               <object class="GtkEntry" id="password_value">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="sensitive" bind-source="use_custom_credentials_check" bind-property="active" />
+                <property name="sensitive" bind-source="use_custom_credentials_check" bind-property="active" bind-flags="sync-create" />
               </object>
               <packing>
-                <property name="top_attach">5</property>
+                <property name="top_attach">6</property>
                 <property name="left_attach">1</property>
               </packing>
             </child>
@@ -187,7 +203,7 @@
                 <property name="label" translatable="yes">Remember</property>
               </object>
               <packing>
-                <property name="top_attach">5</property>
+                <property name="top_attach">6</property>
                 <property name="left_attach">2</property>
                 <property name="width">2</property>
               </packing>
@@ -201,7 +217,7 @@
                 <property name="label" translatable="yes">No login and password required</property>
               </object>
               <packing>
-                <property name="top_attach">6</property>
+                <property name="top_attach">7</property>
                 <property name="left_attach">0</property>
                 <property name="width">4</property>
               </packing>

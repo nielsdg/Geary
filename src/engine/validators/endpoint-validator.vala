@@ -1,4 +1,4 @@
-/* Copyright 2016 Software Freedom Conservancy Inc.
+/* Copyright 2016 Software Niels De Graef
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -10,16 +10,11 @@ public class Geary.EndpointValidator : Validator {
     private int port;
 
     public EndpointValidator(string? remote_address, int port) {
-        required_strings = { remote_address };
-
         this.remote_address = remote_address;
         this.port = port;
     }
 
     public override async bool validate_async(Cancellable? cancellable) {
-        if (!check_required())
-            return false;
-
         // Check if the port is in a valid range
         if (port < 0 || port > 66535) {
             error_message = _("Invalid port: %d").printf(port);

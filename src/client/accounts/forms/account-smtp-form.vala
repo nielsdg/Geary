@@ -9,6 +9,8 @@ public class AccountSmtpForm : AccountForm {
     [GtkChild]
     private Gtk.Grid category_general_grid;
     [GtkChild]
+    private Gtk.Label service_provider_preconfigured;
+    [GtkChild]
     private Gtk.Entry host_value;
     [GtkChild]
     private Gtk.SpinButton port_value;
@@ -34,7 +36,8 @@ public class AccountSmtpForm : AccountForm {
 
         Geary.Endpoint endpoint = account.get_smtp_endpoint();
         host_value.text = endpoint.remote_address.hostname;
-        port_value.value = endpoint.remote_address.port;
+        port_value.adjustment = new Gtk.Adjustment(endpoint.remote_address.port,
+                                                   1.0, 4096.0, 1.0, 1.0, 1.0);
         encryption_combobox.active = endpoint.flags;
 
         if (account.service_provider == Geary.ServiceProvider.OTHER) {
@@ -54,11 +57,17 @@ public class AccountSmtpForm : AccountForm {
                 }
             }
         } else { // Don't allow change of settings when it is a known (i.e. hardcoded) provider.
-            category_general_grid.foreach((widget) => {
-                widget.sensitive = false;
-            });
+            service_provider_preconfigured.visible = true;
+            category_general_grid.sensitive = false;
         }
 
+        save_sent_mail_switch.sensitive = account.allow_save_sent_mail();
         save_sent_mail_switch.active = account.save_sent_mail;
+    }
+
+    public override bool save() {
+        //TODO
+
+        return true;
     }
 }

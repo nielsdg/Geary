@@ -1,12 +1,18 @@
-/* Copyright 2016 Software Freedom Conservancy Inc.
+/* Copyright 2016 Software Niels De Graef
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
  */
 
-namespace Geary {
+/**
+ * A validator checks whether a condition holds for one or multiple properties.
+ * Since it is a GLib.Object, you can use property binding to automate the verification.
+ */
+public abstract class Geary.Validator : Object {
 
-public abstract class Validator : Object {
+    // Whether the validator should automatically validated on a property change
+    public bool automatic_validation { get; set; default = true; }
+
     // Whether the last validation gave a successful result.
     public bool last_validation_result { get; set; }
 
@@ -24,45 +30,14 @@ public abstract class Validator : Object {
     }
     private string _error_message;
 
-    // All properties that should not be null.
-    // TODO: I hoped this could be done in one property
-    protected Object[] required_objects;
-    protected string[] required_strings;
-
     public Validator() {
-        // Just making sure required_properties is not null itself ^^
-        required_objects = {};
-        required_strings = {};
     }
 
-    // Validate the given propertie(s) synchronously.
+    /**
+     * Validates the given property/properties asynchronously.
+     */
     public abstract async bool validate_async(Cancellable? cancellable);
 
-    // The most basic validation: check if the required properties are not null.
-    // Prevents you from writing a lot of null checks in subclasses.
-    public bool check_required() {
-        foreach (Object obj in required_objects) {
-            if (obj == null) {
-                // TODO: print out missing property.
-                error_message = _("You did not fill in all required fields.");
-                return false;
-            }
-        }
-        foreach (string str in required_strings) {
-            if (str == null) {
-                // TODO: print out missing property.
-                error_message = _("You did not fill in all required fields.");
-                return false;
-            }
-        }
-
-        error_message = "";
-        return true;
-    }
-
-    // Fired as soon as the validation has failed, with the given error message.
+    // Fired as soon as the validation has completed, with the given error message.
     public signal void validation_done(bool success, string? error_message);
 }
-
-}
-

@@ -1,4 +1,4 @@
-/* Copyright 2016 Software Freedom Conservancy Inc.
+/* Copyright 2016 Software Niels De Graef
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -10,16 +10,11 @@ public class Geary.ImapValidator : Validator {
     private Geary.Credentials credentials;
 
     public ImapValidator(Geary.Endpoint endpoint, Geary.Credentials credentials) {
-        required_objects = { endpoint, credentials };
-
         this.endpoint = endpoint;
         this.credentials = credentials;
     }
 
     public override async bool validate_async(Cancellable? cancellable) {
-        if (!check_required())
-            return false;
-
         // validate IMAP, which requires logging in and establishing an AUTHORIZED cx state
         Geary.Imap.ClientSession? imap_session = new Imap.ClientSession(endpoint);
         try {

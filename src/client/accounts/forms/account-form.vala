@@ -5,19 +5,25 @@
  */
 
 /**
-  * The AccountForm represents a part of the elements.
+  * The AccountForm represents a part of the account information's elements.
   */
 public abstract class AccountForm : ValidatedForm {
     // The account for which the form is collecting information.
     protected Geary.AccountInformation? account;
 
     // The title of the form
-    private string _title;
-    public string title {
-      get { return _title; }
-    }
+    public string title { get; private set; }
 
     public AccountForm(Geary.AccountInformation? account, string title) {
-      this._title = title;
+        this.account = account;
+        this.title = title;
     }
+
+    /**
+      * Saves the form information to the user account, iff it passes validation. If not, it will
+      * return false.
+      * NOTE: it saves to the object, so this is not persisted. Use account.store_async() for this.
+      * @return Whether the form's inputs passed the validation (if not, it will not be saved).
+      */
+    public abstract bool save();
 }

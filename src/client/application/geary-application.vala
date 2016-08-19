@@ -401,8 +401,7 @@ public class GearyApplication : Gtk.Application {
     }
 
     private void on_activate_accounts() {
-        AccountListDialog dialog = new AccountListDialog(get_active_window());
-        dialog.show_all();
+        AccountsDialog dialog = new AccountsDialog(get_active_window());
         dialog.run();
         dialog.destroy();
     }

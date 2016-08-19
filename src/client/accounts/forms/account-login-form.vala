@@ -6,20 +6,33 @@
 
 [GtkTemplate (ui = "/org/gnome/Geary/account-login-form.ui")]
 public class AccountLoginForm : ValidatedForm {
-    [GtkChild]
-    private Gtk.Label validation_error_label;
-
+    // Username
     [GtkChild]
     private Gtk.Entry username_value;
     [GtkChild]
+    private Gtk.Label username_validation_label;
+    private Geary.EmailValidator username_validator;
+
+    // Password
+    [GtkChild]
     private Gtk.Entry password_value;
+    [GtkChild]
+    private Gtk.Label password_validation_label;
+    private Geary.RequiredStringValidator password_validator;
 
     public AccountLoginForm() {
-        base();
+        username_validator = new Geary.EmailValidator();
+        bind_validator(username_value, username_validator, "address");
+        username_validator.validation_done.connect((succ) => {
+            string label = (succ) ? "<span color=\"green\">✔</span>" : "<span color=\"red\">✗</span>";
+            username_validation_label.label = label;
+        });
 
-        error_label = validation_error_label;
-
-        bind_validator(username_value, new Geary.RequiredStringValidator(true), "str");
-        bind_validator(password_value, new Geary.RequiredStringValidator(true), "str");
+        password_validator = new Geary.RequiredStringValidator(false);
+        bind_validator(password_value, password_validator, "str");
+        password_validator.validation_done.connect((succ) => {
+            string label = (succ) ? "<span color=\"green\">✔</span>" : "<span color=\"red\">✗</span>";
+            password_validation_label.label = label;
+        });
     }
 }

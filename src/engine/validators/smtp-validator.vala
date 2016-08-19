@@ -1,4 +1,4 @@
-/* Copyright 2016 Software Freedom Conservancy Inc.
+/* Copyright 2016 Software Niels De Graef
  *
  * This software is licensed under the GNU Lesser General Public License
  * (version 2.1 or later).  See the COPYING file in this distribution.
@@ -10,16 +10,11 @@ public class Geary.SmtpValidator : Validator {
     private Geary.Credentials credentials;
 
     public SmtpValidator(Geary.Endpoint endpoint, Geary.Credentials? credentials) {
-        required_objects = { endpoint };
-
         this.endpoint = endpoint;
         this.credentials = credentials;
     }
 
     public override async bool validate_async(Cancellable? cancellable) {
-        if (!check_required())
-            return false;
-
         // Check if login works (throws an SmtpError if not). Don't forget to log out afterwards
         Geary.Smtp.ClientSession? smtp_session = new Geary.Smtp.ClientSession(endpoint);
         try {

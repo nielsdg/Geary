@@ -661,15 +661,15 @@ public class AddEditPage : Gtk.Box {
                 debug("Unable to create account %s for %s: %s",
                       this.id, this.email_address, err.message);
             }
-        } else {
-            // Existing account: create a copy so we don't mess up the original.
-            try {
-                info = new Geary.AccountInformation.temp_copy(
-                    Geary.Engine.instance.get_account(this.id)
-                );
-            } catch (Error err) {
-                debug("Unable get existing account %s: %s", this.id, err.message);
-            }
+        /* } else { */
+        /*     // Existing account: create a copy so we don't mess up the original. */
+        /*     try { */
+        /*         info = new Geary.AccountInformation.temp_copy( */
+        /*             Geary.Engine.instance.get_account(this.id) */
+        /*         ); */
+        /*     } catch (Error err) { */
+        /*         debug("Unable get existing account %s: %s", this.id, err.message); */
+        /*     } */
         }
 
         if (info != null) {
